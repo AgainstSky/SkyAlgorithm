@@ -18,12 +18,15 @@ import java.util.List;
  **/
 public class Main {
 
+    static int max = 1 * 10000;
     public static void main(String[] args) {
-        Integer[] array = new Integer[1024];
+        Integer[] array = new Integer[max];
         for (int i = 0; i < array.length; i++) {
-            array[i]= StdRandom.uniform(0,99999);
+            array[i]= StdRandom.uniform(0,Integer.MAX_VALUE- 10000);
         }
-        SkySort.sort(array, SortKey.SELECTION);
+        long st = System.currentTimeMillis();
+        SkySort.sort(array, SortKey.INSERTION);
+        System.out.println("time:"+(System.currentTimeMillis()-st));
         System.out.println(SkySort.isSorted(array));
     }
 }
