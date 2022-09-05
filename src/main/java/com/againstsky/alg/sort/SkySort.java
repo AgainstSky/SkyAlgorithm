@@ -1,6 +1,8 @@
 package com.againstsky.alg.sort;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,44 +12,49 @@ import java.util.List;
  **/
 public class SkySort {
 
+    private static HashMap<SortKey,ISort> sortMap;
+
+    static {
+        init();
+    }
+    private static void init(){
+        sortMap = new HashMap<>();
+    }
+
+    private static ISort getSort(SortKey key){
+        if (sortMap.containsKey(key)){
+            return sortMap.get(key);
+        }else {
+            ISort sort = null;
+            switch (key){
+                case INSERTION:
+                    sort = new InsertionSort();
+                    break;
+                case SELECTION:
+                    sort = new SelectionSort();
+                    break;
+            }
+            sortMap.put(key,sort);
+            return sort;
+        }
+    }
+
     public static void sort(List<? extends Comparable<?>> datum) {
-
     }
 
-    public static void sort(Comparable<?>[] array) {
-
+    public static void sort(Comparable[] array) {
+       sort(array,SortKey.SELECTION);
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> boolean sorted(List<T> datum, Comparator<T> c) {
-        if (datum.isEmpty()) {
-            return true;
-        }
-        if (c == null) {
-            if (datum.get(0) instanceof Comparable)
-                return sorted((List<? extends Comparable<T>>) datum);
-            else
-                return false;
-        }
-        for (int i = 0; i < datum.size() - 1; i++) {
-            if (c.compare(datum.get(i), datum.get(i + 1)) > 0) {
-                return false;
-            }
-        }
-        return true;
+    public static void sort(Comparable[] array,SortKey key){
+        ISort sort = getSort(key);
+        sort.sort(array);
     }
 
-    private static <T> boolean sorted(List<? extends Comparable<T>> datum) {
-        for (int i = 0; i < datum.size() - 1; i++) {
-            if (datum.get(i).compareTo((T) datum.get(i + 1)) > 0) {
-                return false;
-            }
-        }
-        return true;
+    public static boolean isSorted(Comparable[] array){
+        ISort sort = getSort(SortKey.SELECTION);
+        return sort.isSorted(array);
     }
 
-//    public static boolean sorted(Comparable<?>[] array) {
-//        return false;
-//    }
 
 }
