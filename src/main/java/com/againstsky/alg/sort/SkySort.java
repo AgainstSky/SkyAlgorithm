@@ -33,6 +33,9 @@ public class SkySort {
                 case SELECTION:
                     sort = new SelectionSort();
                     break;
+                case SHELL:
+                    sort = new ShellSort();
+                    break;
             }
             sortMap.put(key,sort);
             return sort;
@@ -42,13 +45,16 @@ public class SkySort {
     public static void sort(List<? extends Comparable<?>> datum) {
     }
 
-    public static void sort(Comparable[] array) {
-       sort(array,SortKey.SELECTION);
+    public static int[] sort(Comparable[] array) {
+       return sort(array,SortKey.SELECTION);
     }
 
-    public static void sort(Comparable[] array,SortKey key){
+    public static int[] sort(Comparable[] array,SortKey key){
         ISort sort = getSort(key);
         sort.sort(array);
+        if (sort instanceof SkyAbstractSort){
+            return ((SkyAbstractSort)sort).getLastSortCount();
+        }else return null;
     }
 
     public static boolean isSorted(Comparable[] array){

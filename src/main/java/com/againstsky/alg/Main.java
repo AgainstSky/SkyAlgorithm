@@ -6,6 +6,7 @@ import com.againstsky.alg.sort.*;
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
+import edu.princeton.cs.algs4.Stopwatch;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -24,9 +25,10 @@ public class Main {
         for (int i = 0; i < array.length; i++) {
             array[i]= StdRandom.uniform(0,Integer.MAX_VALUE- 10000);
         }
-        long st = System.currentTimeMillis();
-        SkySort.sort(array, SortKey.INSERTION);
-        System.out.println("time:"+(System.currentTimeMillis()-st));
+        Stopwatch stopwatch = new Stopwatch();
+        int[] sort = SkySort.sort(array, SortKey.INSERTION);
+        System.out.println("time:"+(stopwatch.elapsedTime()));
+        System.out.println("exchCount:"+sort[0]+",cmpCount:"+sort[1]);
         System.out.println(SkySort.isSorted(array));
     }
 }

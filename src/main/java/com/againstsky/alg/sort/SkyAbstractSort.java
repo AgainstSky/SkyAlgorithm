@@ -10,42 +10,29 @@ import java.util.Comparator;
 @SuppressWarnings("unchecked")
 public abstract class SkyAbstractSort implements ISort {
 
-    protected abstract void sort(Comparable[] array, Comparator cmp);
+    private int exchCount = 0, cmpCount = 0;
 
-    protected boolean less(Object l, Object r, Comparator cmp) {
-        if (cmp == null){
-            return less(l,r);
-        }
-        return cmp.compare(l, r) < 0;
+    public int[] getLastSortCount(){
+        return new int[]{exchCount,cmpCount};
     }
 
-    private boolean less(Comparable l, Comparable r) {
-        return l.compareTo(r) < 0;
-    }
-
-    private boolean less(Object l,Object r){
-        if (l instanceof Comparable && r instanceof Comparable){
-            return less((Comparable) l,(Comparable) r);
-        }else {
-            throw new RuntimeException("无法比较的值");
-        }
-    }
-
-    @Override
-    public void sort(Object[] array, Comparator cmp) {
-        if (cmp == null && !(array[0] instanceof Comparable)) {
-            throw new RuntimeException("无法比较的值");
-        }
-        sort((Comparable[]) array, cmp);
+    protected void clear() {
+        exchCount = 0;
+        cmpCount = 0;
     }
 
     @Override
     public void sort(Comparable[] array) {
-        sort(array,null);
+        clear();
     }
 
+    protected boolean less(Comparable l, Comparable r) {
+        cmpCount++;
+        return l.compareTo(r) < 0;
+    }
 
     protected void exch(Object[] array, int i, int j) {
+        exchCount++;
         Object temp = array[i];
         array[i] = array[j];
         array[j] = temp;
