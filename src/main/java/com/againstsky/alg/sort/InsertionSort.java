@@ -3,7 +3,7 @@ package com.againstsky.alg.sort;
 import java.util.Comparator;
 
 /**
- * 选择排序
+ * 插入排序
  */
 public class InsertionSort extends SkyAbstractSort {
 
@@ -13,10 +13,8 @@ public class InsertionSort extends SkyAbstractSort {
         super.sort(array);
         int N = array.length;
         for (int i = 1; i < N; i++) {
-            for (int j = i; j > 0; j--) {
-                if (less(array[j], array[j - 1])) {
-                    exch(array, j - 1, j);
-                }
+            for (int j = i; j > 0 && less(array[j], array[j - 1]); j--) {
+                exch(array, j - 1, j);
             }
         }
     }

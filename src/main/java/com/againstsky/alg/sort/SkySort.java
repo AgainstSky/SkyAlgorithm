@@ -36,6 +36,12 @@ public class SkySort {
                 case SHELL:
                     sort = new ShellSort();
                     break;
+                case MERGER:
+                    sort = new MergeSort();
+                    break;
+                case QUICK:
+                    sort = new QuickSort();
+                    break;
             }
             sortMap.put(key,sort);
             return sort;

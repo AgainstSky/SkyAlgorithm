@@ -9,6 +9,7 @@ import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.Stopwatch;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,14 +20,16 @@ import java.util.List;
  **/
 public class Main {
 
-    static int max = 1 * 10000;
+    static int max = 10000 * 10000;
     public static void main(String[] args) {
         Integer[] array = new Integer[max];
         for (int i = 0; i < array.length; i++) {
-            array[i]= StdRandom.uniform(0,Integer.MAX_VALUE- 10000);
+//            array[i]= StdRandom.uniform(0,Integer.MAX_VALUE- 10000);
+            array[i] =1;
         }
+
         Stopwatch stopwatch = new Stopwatch();
-        int[] sort = SkySort.sort(array, SortKey.INSERTION);
+        int[] sort = SkySort.sort(array, SortKey.QUICK);
         System.out.println("time:"+(stopwatch.elapsedTime()));
         System.out.println("exchCount:"+sort[0]+",cmpCount:"+sort[1]);
         System.out.println(SkySort.isSorted(array));

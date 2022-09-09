@@ -4,5 +4,7 @@ public enum SortKey {
     SELECTION,
     INSERTION,
 
-    SHELL;
+    SHELL,
+    MERGER,
+    QUICK;
 }
